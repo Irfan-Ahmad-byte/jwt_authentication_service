@@ -84,7 +84,7 @@ You can use:
 - cURL
 - Or simple browser for redirection
 
-## 📌 Future Improvements
+## 📌 Possible Feature Improvements
 - Email verification via OTP
 - Password reset via email
 - Rate limiting (per IP/token)
