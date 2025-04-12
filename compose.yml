@@ -15,6 +15,7 @@ services:
       - ./app/configs/.env
     networks:
       - auth_network
+      - shared_network
     # develop:
     #   watch:
     #     - action: sync+restart
@@ -42,9 +43,8 @@ services:
     networks:
       - auth_network
 
-  redis:
+  auth_redis:
     image: redis:7.4.2
-    container_name: auth_redis
     ports:
       - "6379:6379"
     volumes:
@@ -63,3 +63,6 @@ volumes:
 networks:
   auth_network:
     driver: bridge
+  shared_network:
+    external: true
+    name: shared_network

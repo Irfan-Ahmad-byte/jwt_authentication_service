@@ -242,3 +242,20 @@
 2025-04-11 19:33:03,212 - app.main - INFO - Database and tables created.
 2025-04-11 19:33:03,212 - app.main - INFO - Application's ready...
 2025-04-11 19:33:13,560 - app.api.auth - ERROR - User user@example.com already exists
+2025-04-12 19:30:15,199 - app.core.redis - ERROR - Redis connection failed: Error 111 connecting to redis:6380. Connection refused.
+2025-04-12 19:30:54,763 - app.core.redis - ERROR - Redis connection failed: Error 111 connecting to redis:6380. Connection refused.
+2025-04-12 19:32:08,930 - app.core.redis - ERROR - Redis connection failed: Error -3 connecting to redis:6380. Temporary failure in name resolution.
+2025-04-12 19:35:43,751 - app.core.redis - ERROR - Redis connection failed: Error 111 connecting to auth_redis:6380. Connection refused.
+2025-04-12 19:37:38,419 - app.core.redis - INFO - Redis connection successful.
+2025-04-12 19:37:38,644 - app.main - INFO - Starting up...
+2025-04-12 19:37:38,644 - app.main - INFO - Connecting to database...
+2025-04-12 19:37:38,645 - app.core.database - INFO - Database connection successful.
+2025-04-12 19:37:38,645 - app.main - INFO - Connecting to redis...
+2025-04-12 19:37:38,648 - app.core.redis - INFO - Redis connection successful.
+2025-04-12 19:37:38,649 - app.main - INFO - Creating database and tables...
+2025-04-12 19:37:38,716 - app.core.database - WARNING - existing tables: []
+2025-04-12 19:37:38,717 - app.core.database - WARNING - all model tables: dict_keys(['login_history', 'users'])
+2025-04-12 19:37:38,717 - app.core.database - WARNING - missing tables: ['login_history', 'users']
+2025-04-12 19:37:38,717 - app.core.database - INFO - Creating missing tables: ['login_history', 'users']
+2025-04-12 19:37:38,751 - app.main - INFO - Database and tables created.
+2025-04-12 19:37:38,751 - app.main - INFO - Application's ready...
