@@ -60,7 +60,7 @@ def login_user(
 
 
 @router.post("/refresh", response_model=Token)
-def refresh_token(refresh_token: str = Header(...)):
+def refresh_token(refresh_token: str = Header("Authorization")):
     if is_token_blacklisted(refresh_token):
         raise HTTPException(status_code=401, detail="Token is blacklisted")
 
@@ -77,7 +77,7 @@ def refresh_token(refresh_token: str = Header(...)):
     }
 
 @router.post("/logout")
-def logout(refresh_token: str = Header(...)):
+def logout(refresh_token: str = Header("Authorization")):
     subject = decode_token(refresh_token)
     if not subject:
         raise HTTPException(status_code=401, detail="Invalid token")

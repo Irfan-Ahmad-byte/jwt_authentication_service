@@ -3,6 +3,7 @@ from fastapi import FastAPI
 
 from app.core.database import check_db_connection, create_db_n_tables
 from app.core.redis import check_redis_connection
+from app.middlewares.request_logger import RequestLoggingMiddleware
 from app.utils.logs import get_logger
 from app.api import auth, users
 from app.configs.configs import settings
@@ -31,6 +32,9 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Authentication micro-service", version="1.0.0", lifespan=lifespan)
+app.add_middleware(
+    RequestLoggingMiddleware
+)
 
 @app.get("/")
 async def root():
