@@ -60,29 +60,34 @@ def login_user(
 
 
 @router.post("/refresh", response_model=Token)
-def refresh_token(refresh_token: str = Header("Authorization")):
-    if is_token_blacklisted(refresh_token):
+def refresh_token(token: str = Header("Refresh Token")):
+    logger.info(f"Received refresh token: {token}")
+    if not token:
+        logger.error("Refresh token is missing")
+        raise HTTPException(status_code=401, detail="Missing refresh token")
+    if is_token_blacklisted(token):
         raise HTTPException(status_code=401, detail="Token is blacklisted")
 
-    subject = decode_token(refresh_token)
+    subject = decode_token(token)
     if not subject:
+        logger.error("Invalid token")
         raise HTTPException(status_code=401, detail="Invalid token")
 
     access_token = create_access_token(subject)
 
     return {
         "access_token": access_token,
-        "refresh_token": refresh_token,
+        "refresh_token": token,
         "token_type": "bearer"
     }
 
 @router.post("/logout")
-def logout(refresh_token: str = Header("Authorization")):
-    subject = decode_token(refresh_token)
+def logout(token: str = Header("Authorization")):
+    subject = decode_token(token)
     if not subject:
         raise HTTPException(status_code=401, detail="Invalid token")
 
     # Assume 30 days in minutes = 43200
-    blacklist_token(refresh_token, 60 * 43200)
+    blacklist_token(token, 60 * 43200)
 
     return JSONResponse(content={"detail": "Logged out successfully"})

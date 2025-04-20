@@ -1,3 +1,4 @@
+from uuid import UUID
 from pydantic import BaseModel, EmailStr
 
 class UserBase(BaseModel):
@@ -7,7 +8,7 @@ class UserCreate(UserBase):
     password: str
 
 class UserOut(UserBase):
-    id: int
+    id: UUID
     is_active: bool
     is_verified: bool
 

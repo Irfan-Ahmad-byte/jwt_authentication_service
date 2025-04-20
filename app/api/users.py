@@ -57,7 +57,3 @@ def login_history(token: str = Header(...), db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
 
     return get_user_login_history(db, user.id)
-
-
-#   "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiZXhwIjoxNzQ0NTMwNjYxfQ.QHFHU-g7O7j8NFkUCPenmhO3DzItEsnDWVEBnSHYv-s",
-#   "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiZXhwIjoxNzQ3MTIxNzYxfQ.rPM6k8eP-BUNTPY-0Pd1BM4SblMZBZvNqrEOTuDpB8E",
