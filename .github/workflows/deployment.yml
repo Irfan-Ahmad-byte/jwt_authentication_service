@@ -18,6 +18,12 @@ jobs:
 
       - uses: actions/checkout@v4
 
+      - name: Debug SSH IP
+        run: |
+          echo "SSH_SERVER_IP from secrets: ${{ secrets.SSH_SERVER_IP }}"
+          echo "SSH_SERVER_IP from vars: ${{ vars.SSH_SERVER_IP }}"
+
+
       - name: Create remote directory if it doesn't exist
         uses: appleboy/ssh-action@v1.1.0
         with:
