@@ -85,6 +85,7 @@ def refresh_token(token: str = Header("Refresh Token")):
 def logout(token: str = Header("Authorization")):
     subject = decode_token(token)
     if not subject:
+        logger.error("Invalid token")
         raise HTTPException(status_code=401, detail="Invalid token")
 
     # Assume 30 days in minutes = 43200
