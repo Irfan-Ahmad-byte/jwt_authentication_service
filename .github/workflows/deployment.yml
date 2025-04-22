@@ -96,5 +96,6 @@ jobs:
           port: 22
           script_stop: true
           script: |
+            cd $HOME/mlm_demo/${{ github.ref_name }}/${{ github.event.repository.name }}
             docker compose stop
             docker compose up --build --force-recreate
