@@ -99,4 +99,4 @@ jobs:
             cd $HOME/mlm_demo/${{ github.event.repository.name }}
             ls
             docker compose stop
-            docker compose up --build --force-recreate
+            docker compose up -d --build --force-recreate
