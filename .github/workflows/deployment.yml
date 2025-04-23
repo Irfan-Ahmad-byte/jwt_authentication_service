@@ -28,11 +28,11 @@ jobs:
           port: 22
           script_stop: true
           script: |
-            mkdir -p $HOME/mlm_demo/${{ github.ref_name }}/${{ github.event.repository.name }}
+            mkdir -p $HOME/mlm_demo/${{ github.event.repository.name }}
 
       - name: Archive code into zip
         run: |
-          zip -r code.zip . -x "target/*"
+          zip -r ${{ github.event.repository.name }}.zip . -x "target/*"
 
       - name: Upload zip file to server
         uses: appleboy/scp-action@v0.1.7
@@ -41,7 +41,7 @@ jobs:
           username: ${{ secrets.SSH_SERVER_USER != '' && secrets.SSH_SERVER_USER || vars.SSH_SERVER_USER }}
           key: ${{ secrets.SSH_KEY != '' && secrets.SSH_KEY || vars.SSH_KEY }}
           source: "code.zip"
-          target: "$HOME/mlm_demo/${{ github.ref_name }}/${{ github.event.repository.name }}/"
+          target: "$HOME/mlm_demo/"
 
       - name: Deploy code on Server
         uses: appleboy/ssh-action@v1.1.0
@@ -52,11 +52,11 @@ jobs:
           command_timeout: 15m
           port: 22
           script: |
-            cd $HOME/mlm_demo/${{ github.ref_name }}/${{ github.event.repository.name }}
+            cd $HOME/mlm_demo/
             shopt -s extglob
             rm -rf -- !(target|code.zip)
-            unzip code.zip
-            rm code.zip
+            unzip ${{ github.event.repository.name }}.zip
+            rm ${{ github.event.repository.name }}.zip
 
       - name: Make env
         uses: appleboy/ssh-action@v1.1.0
@@ -68,7 +68,7 @@ jobs:
           port: 22
           script_stop: true
           script: |
-            cd $HOME/mlm_demo/${{ github.ref_name }}/${{ github.event.repository.name }}
+            cd $HOME/mlm_demo/${{ github.event.repository.name }}
             rm -f .env
             echo DB_URL=${{ secrets.DB_URL != '' && secrets.DB_URL || vars.DB_URL }} >> .env
             echo DB_HOST=${{ secrets.DB_HOST != '' && secrets.DB_HOST || vars.DB_HOST }} >> .env
@@ -96,6 +96,7 @@ jobs:
           port: 22
           script_stop: true
           script: |
-            cd $HOME/mlm_demo/${{ github.ref_name }}/${{ github.event.repository.name }}
+            cd $HOME/mlm_demo/${{ github.event.repository.name }}
+            ls
             docker compose stop
             docker compose up --build --force-recreate
