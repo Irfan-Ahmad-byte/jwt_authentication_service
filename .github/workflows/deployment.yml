@@ -68,7 +68,7 @@ jobs:
           port: 22
           script_stop: true
           script: |
-            cd $HOME/mlm_demo/${{ github.event.repository.name }}
+            cd $HOME/mlm_demo/${{ github.event.repository.name }}/app/configs/
             rm -f .env
             echo DB_URL=${{ secrets.DB_URL != '' && secrets.DB_URL || vars.DB_URL }} >> .env
             echo DB_HOST=${{ secrets.DB_HOST != '' && secrets.DB_HOST || vars.DB_HOST }} >> .env
