@@ -40,7 +40,7 @@ jobs:
           host: ${{ secrets.SSH_SERVER_IP != '' && secrets.SSH_SERVER_IP || vars.SSH_SERVER_IP }}
           username: ${{ secrets.SSH_SERVER_USER != '' && secrets.SSH_SERVER_USER || vars.SSH_SERVER_USER }}
           key: ${{ secrets.SSH_KEY != '' && secrets.SSH_KEY || vars.SSH_KEY }}
-          source: "code.zip"
+          source: "${{ github.event.repository.name }}.zip"
           target: "$HOME/mlm_demo/"
 
       - name: Deploy code on Server
