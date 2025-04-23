@@ -32,7 +32,7 @@ jobs:
 
       - name: Archive code into zip
         run: |
-          zip -r ${{ github.event.repository.name }}.zip . -x "target/*"
+          zip -r code.zip . -x "target/*"
 
       - name: Upload zip file to server
         uses: appleboy/scp-action@v0.1.7
@@ -40,8 +40,8 @@ jobs:
           host: ${{ secrets.SSH_SERVER_IP != '' && secrets.SSH_SERVER_IP || vars.SSH_SERVER_IP }}
           username: ${{ secrets.SSH_SERVER_USER != '' && secrets.SSH_SERVER_USER || vars.SSH_SERVER_USER }}
           key: ${{ secrets.SSH_KEY != '' && secrets.SSH_KEY || vars.SSH_KEY }}
-          source: "${{ github.event.repository.name }}.zip"
-          target: "$HOME/mlm_demo/"
+          source: "code.zip"
+          target: "$HOME/mlm_demo/${{ github.event.repository.name }}/"
 
       - name: Deploy code on Server
         uses: appleboy/ssh-action@v1.1.0
@@ -54,9 +54,9 @@ jobs:
           script: |
             cd $HOME/mlm_demo/
             shopt -s extglob
-            rm -rf -- !(${{ github.event.repository.name }}.zip)
-            unzip ${{ github.event.repository.name }}.zip
-            rm ${{ github.event.repository.name }}.zip
+            rm -rf -- !(code.zip)
+            unzip code.zip
+            rm code.zip
 
       - name: Make env
         uses: appleboy/ssh-action@v1.1.0
