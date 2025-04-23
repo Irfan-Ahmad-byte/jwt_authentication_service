@@ -28,5 +28,6 @@ class Configs(BaseSettings):
     # Example: API keys, secret keys, etc.
     class Config:
         env_file = ".env"
+        extra = 'allow'
 
 settings = Configs()
